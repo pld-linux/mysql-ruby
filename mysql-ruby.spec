@@ -27,20 +27,25 @@ Modu³ MySQL dla Ruby.
 %setup -q -n %{tarname}-%{version}
 
 %build
-ruby extconf.rb --with-mysql-dir=%{_prefix}
-%{__make}
+ruby extconf.rb \
+	--with-mysql-dir=%{_prefix}
+%{__make} \
+	CC="%{__cc}" \
+	CFLAGS="%{rpmcflags} -fPIC"
+
 rdoc -o rdoc
 rdoc --ri -o ri
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{ruby_archdir},%{ruby_ridir}}
+#install -d $RPM_BUILD_ROOT{%{ruby_archdir},%{ruby_ridir}}
+install -d $RPM_BUILD_ROOT%{ruby_archdir}
 
 %{__make} install \
 	archdir=$RPM_BUILD_ROOT%{ruby_archdir} \
 	sitearchdir=$RPM_BUILD_ROOT%{ruby_archdir}
 
-cp -a ri/ri/* $RPM_BUILD_ROOT%{ruby_ridir}
+#cp -a ri/ri/* $RPM_BUILD_ROOT%{ruby_ridir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
