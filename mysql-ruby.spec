@@ -17,6 +17,7 @@ Requires:	ruby
 Obsoletes:	ruby-mysql
 Conflicts:	ruby-mysql
 Obsoletes:	ruby-Mysql
+Provides:	ruby-mysql-library
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
