@@ -1,14 +1,13 @@
 %define	ruby_archdir	%(ruby -r rbconfig -e 'print Config::CONFIG["archdir"]')
 %define	ruby_ridir	%(ruby -r rbconfig -e 'include Config; print File.join(CONFIG["datadir"], "ri", CONFIG["ruby_version"], "system")')
-%define	tarname			mysql-ruby
 Summary:	MySQL module for Ruby
 Summary(pl):	Modu³ MySQL dla Ruby
-Name:		ruby-Mysql
+Name:		mysql-ruby
 Version:	2.5.1
 Release:	1
 License:	GPL
 Group:		Development/Languages
-Source0:	http://www.tmtm.org/mysql/ruby/%{tarname}-%{version}.tar.gz
+Source0:	http://www.tmtm.org/mysql/ruby/%{name}-%{version}.tar.gz
 # Source0-md5:	9c7026eb38ec8252de8bc89c5f263208
 URL:		http://www.tmtm.org/mysql/ruby/
 BuildRequires:	mysql-devel
@@ -16,6 +15,8 @@ BuildRequires:	ruby
 BuildRequires:	ruby-devel
 Requires:	ruby
 Obsoletes:	ruby-mysql
+Conflicts:	ruby-mysql
+Obsoletes:	ruby-Mysql
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -25,7 +26,7 @@ MySQL module for Ruby.
 Modu³ MySQL dla Ruby.
 
 %prep
-%setup -q -n %{tarname}-%{version}
+%setup -q
 
 %build
 ruby extconf.rb \
