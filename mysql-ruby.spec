@@ -9,6 +9,7 @@ License:	GPL
 Group:		Development/Languages
 Source0:	http://tmtm.org/downloads/mysql/ruby/%{name}-%{version}.tar.gz
 # Source0-md5:	c6668900e68f0d6a137612c818d5fd01
+Patch0: 	mysql-ruby-amd64.patch
 URL:		http://www.tmtm.org/mysql/ruby/
 BuildRequires:	mysql-devel
 BuildRequires:	ruby
@@ -28,6 +29,7 @@ Modu³ MySQL dla jêzyka Ruby.
 
 %prep
 %setup -q
+%patch0 -p0
 
 %build
 ruby extconf.rb \
