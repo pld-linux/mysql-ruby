@@ -1,0 +1,67 @@
+Index: mysql.c.in
+===================================================================
+--- mysql.c.in.orig
++++ mysql.c.in
+@@ -1362,6 +1362,7 @@ static VALUE stmt_execute(int argc, VALU
+ 		t.day = FIX2INT(RARRAY(a)->ptr[3]);
+ 		t.month = FIX2INT(RARRAY(a)->ptr[4]);
+ 		t.year = FIX2INT(RARRAY(a)->ptr[5]);
++		t.time_type = MYSQL_TYPE_DATETIME;
+ 		*(MYSQL_TIME*)&(s->param.buffer[i]) = t;
+ 	    } else if (CLASS_OF(argv[i]) == cMysqlTime) {
+ 		MYSQL_TIME t;
+@@ -1375,6 +1376,7 @@ static VALUE stmt_execute(int argc, VALU
+ 		t.day = NUM2INT(rb_iv_get(argv[i], "day"));
+ 		t.month = NUM2INT(rb_iv_get(argv[i], "month"));
+ 		t.year = NUM2INT(rb_iv_get(argv[i], "year"));
++		t.time_type = MYSQL_TYPE_DATETIME;
+ 		*(MYSQL_TIME*)&(s->param.buffer[i]) = t;
+ 	    } else
+ 		rb_raise(rb_eTypeError, "unsupported type: %d", TYPE(argv[i]));
+@@ -1700,31 +1702,32 @@ static VALUE time_initialize(int argc, V
+     rb_iv_set(obj, "second", NILorFIXvalue(second));
+     rb_iv_set(obj, "neg", (neg == Qnil || neg == Qfalse) ? Qfalse : Qtrue);
+     rb_iv_set(obj, "second_part", NILorFIXvalue(second_part));
++    return obj;
+ }
+ 
+ static VALUE time_inspect(VALUE obj)
+ {
+     char buf[36];
+-    sprintf(buf, "#<Mysql::Time:%04d-%02d-%02d %02d:%02d:%02d>",
+-	    NUM2INT(rb_iv_get(obj, "year")),
+-	    NUM2INT(rb_iv_get(obj, "month")),
+-	    NUM2INT(rb_iv_get(obj, "day")),
+-	    NUM2INT(rb_iv_get(obj, "hour")),
+-	    NUM2INT(rb_iv_get(obj, "minute")),
+-	    NUM2INT(rb_iv_get(obj, "second")));
++    sprintf(buf, "#<Mysql::Time:%04ld-%02ld-%02ld %02ld:%02ld:%02ld>",
++	    NUM2LONG(rb_iv_get(obj, "year")),
++	    NUM2LONG(rb_iv_get(obj, "month")),
++	    NUM2LONG(rb_iv_get(obj, "day")),
++	    NUM2LONG(rb_iv_get(obj, "hour")),
++	    NUM2LONG(rb_iv_get(obj, "minute")),
++	    NUM2LONG(rb_iv_get(obj, "second")));
+     return rb_str_new2(buf);
+ }
+ 
+ static VALUE time_to_s(VALUE obj)
+ {
+     char buf[20];
+-    sprintf(buf, "%04d-%02d-%02d %02d:%02d:%02d",
+-	    NUM2INT(rb_iv_get(obj, "year")),
+-	    NUM2INT(rb_iv_get(obj, "month")),
+-	    NUM2INT(rb_iv_get(obj, "day")),
+-	    NUM2INT(rb_iv_get(obj, "hour")),
+-	    NUM2INT(rb_iv_get(obj, "minute")),
+-	    NUM2INT(rb_iv_get(obj, "second")));
++    sprintf(buf, "%04ld-%02ld-%02ld %02ld:%02ld:%02ld",
++	    NUM2LONG(rb_iv_get(obj, "year")),
++	    NUM2LONG(rb_iv_get(obj, "month")),
++	    NUM2LONG(rb_iv_get(obj, "day")),
++	    NUM2LONG(rb_iv_get(obj, "hour")),
++	    NUM2LONG(rb_iv_get(obj, "minute")),
++	    NUM2LONG(rb_iv_get(obj, "second")));
+     return rb_str_new2(buf);
+ }
+ 
