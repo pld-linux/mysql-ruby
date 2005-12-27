@@ -11,8 +11,7 @@ Patch0:		%{name}-amd64.patch
 URL:		http://www.tmtm.org/mysql/ruby/
 BuildRequires:	mysql-devel
 BuildRequires:	rpmbuild(macros) >= 1.272
-BuildRequires:	ruby-modules
-BuildRequires:	ruby-modules-devel
+BuildRequires:	ruby-devel
 Requires:	ruby-modules
 Provides:	ruby-mysql-library
 Obsoletes:	ruby-Mysql
