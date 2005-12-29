@@ -10,9 +10,9 @@ Source0:	http://tmtm.org/downloads/mysql/ruby/%{name}-%{version}.tar.gz
 Patch0:		%{name}-amd64.patch
 URL:		http://www.tmtm.org/mysql/ruby/
 BuildRequires:	mysql-devel
-BuildRequires:	rpmbuild(macros) >= 1.272
+BuildRequires:	rpmbuild(macros) >= 1.277
 BuildRequires:	ruby-devel
-Requires:	ruby-modules
+%ruby_mod_ver_requires_eq
 Provides:	ruby-mysql-library
 Obsoletes:	ruby-Mysql
 # FIXME: obsolete or conflict, not both
