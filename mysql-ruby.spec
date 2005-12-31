@@ -12,7 +12,7 @@ URL:		http://www.tmtm.org/mysql/ruby/
 BuildRequires:	mysql-devel
 BuildRequires:	rpmbuild(macros) >= 1.277
 BuildRequires:	ruby-devel
-%ruby_mod_ver_requires_eq
+%{?ruby_mod_ver_requires_eq}
 Provides:	ruby-mysql-library
 Obsoletes:	ruby-Mysql
 # FIXME: obsolete or conflict, not both
