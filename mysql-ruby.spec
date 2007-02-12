@@ -1,5 +1,5 @@
 Summary:	MySQL module for Ruby
-Summary(pl):	Modu³ MySQL dla jêzyka Ruby
+Summary(pl.UTF-8):   ModuÅ‚ MySQL dla jÄ™zyka Ruby
 Name:		mysql-ruby
 Version:	2.7
 Release:	4
@@ -23,8 +23,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 MySQL module for Ruby.
 
-%description -l pl
-Modu³ MySQL dla jêzyka Ruby.
+%description -l pl.UTF-8
+ModuÅ‚ MySQL dla jÄ™zyka Ruby.
 
 %prep
 %setup -q
