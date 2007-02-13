@@ -1,5 +1,5 @@
 Summary:	MySQL module for Ruby
-Summary(pl.UTF-8):   Moduł MySQL dla języka Ruby
+Summary(pl.UTF-8):	Moduł MySQL dla języka Ruby
 Name:		mysql-ruby
 Version:	2.7
 Release:	4
