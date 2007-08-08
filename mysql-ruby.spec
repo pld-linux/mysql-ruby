@@ -48,7 +48,7 @@ install -d $RPM_BUILD_ROOT{%{ruby_archdir},%{ruby_ridir}}
 	archdir=$RPM_BUILD_ROOT%{ruby_archdir} \
 	sitearchdir=$RPM_BUILD_ROOT%{ruby_archdir}
 
-cp -a ri/ri/* $RPM_BUILD_ROOT%{ruby_ridir}
+cp -a ri/* $RPM_BUILD_ROOT%{ruby_ridir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
