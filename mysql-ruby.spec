@@ -39,6 +39,8 @@ ruby extconf.rb \
 
 rdoc -o rdoc
 rdoc --ri -o ri
+rm ri/created.rid
+rm ri/Object/cdesc-Object.yaml
 
 %install
 rm -rf $RPM_BUILD_ROOT
