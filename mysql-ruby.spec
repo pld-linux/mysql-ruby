@@ -1,22 +1,21 @@
 Summary:	MySQL module for Ruby
 Summary(pl.UTF-8):	Moduł MySQL dla języka Ruby
 Name:		mysql-ruby
-Version:	2.7
-Release:	4
+Version:	2.8.2
+Release:	1
 License:	GPL
 Group:		Development/Languages
 Source0:	http://tmtm.org/downloads/mysql/ruby/%{name}-%{version}.tar.gz
-# Source0-md5:	c6668900e68f0d6a137612c818d5fd01
+# Source0-md5:	eb998b89b7e391cffe0a1f84bd426f9b
 Patch0:		%{name}-amd64.patch
 URL:		http://www.tmtm.org/mysql/ruby/
 BuildRequires:	mysql-devel
-BuildRequires:	rpmbuild(macros) >= 1.277
-BuildRequires:	ruby-devel
+BuildRequires:	rpmbuild(macros) >= 1.484
+BuildRequires:	ruby >= 1:1.8.6
+BuildRequires:	ruby-modules
 %{?ruby_mod_ver_requires_eq}
 Provides:	ruby-mysql-library
 Obsoletes:	ruby-Mysql
-# FIXME: obsolete or conflict, not both
-Obsoletes:	ruby-mysql
 Conflicts:	ruby-mysql
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -26,37 +25,71 @@ MySQL module for Ruby.
 %description -l pl.UTF-8
 Moduł MySQL dla języka Ruby.
 
+%package rdoc
+Summary:	HTML documentation for %{name}
+Summary(pl.UTF-8):	Dokumentacja w formacie HTML dla %{name}
+Group:		Documentation
+Requires:	ruby >= 1:1.8.7-4
+
+%description rdoc
+HTML documentation for %{name}.
+
+%description rdoc -l pl.UTF-8
+Dokumentacja w formacie HTML dla %{name}.
+
+%package ri
+Summary:	ri documentation for %{name}
+Summary(pl.UTF-8):	Dokumentacja w formacie ri dla %{name}
+Group:		Documentation
+Requires:	ruby
+
+%description ri
+ri documentation for %{name}.
+
+%description ri -l pl.UTF-8
+Dokumentacji w formacie ri dla %{name}.
+
 %prep
 %setup -q
 %patch0 -p0
 
 %build
 ruby extconf.rb \
-	--with-mysql-dir=%{_prefix}
+	--with-mysql-config
+
 %{__make} \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} -fPIC"
 
-rdoc -o rdoc
-rdoc --ri -o ri
+rdoc --ri --op ri
+rdoc --op rdoc
+rm -r ri/Object
 rm ri/created.rid
-rm ri/Object/cdesc-Object.yaml
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{ruby_archdir},%{ruby_ridir}}
+install -d $RPM_BUILD_ROOT{%{ruby_rubylibdir},%{ruby_ridir},%{ruby_rdocdir}}
 
 %{__make} install \
 	archdir=$RPM_BUILD_ROOT%{ruby_archdir} \
 	sitearchdir=$RPM_BUILD_ROOT%{ruby_archdir}
 
 cp -a ri/* $RPM_BUILD_ROOT%{ruby_ridir}
+cp -a rdoc $RPM_BUILD_ROOT%{ruby_rdocdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README* rdoc
+%doc README*
 %attr(755,root,root) %{ruby_archdir}/mysql.so
-%{ruby_ridir}/*
+
+%files rdoc
+%defattr(644,root,root,755)
+%{ruby_rdocdir}/%{name}-%{version}
+
+%files ri
+%defattr(644,root,root,755)
+%{ruby_ridir}/Mysql
+%{ruby_ridir}/TC_Mysql*
