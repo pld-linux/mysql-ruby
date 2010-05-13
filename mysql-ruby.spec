@@ -13,6 +13,7 @@ URL:		http://www.tmtm.org/mysql/ruby/
 BuildRequires:	mysql-devel
 BuildRequires:	rpmbuild(macros) >= 1.484
 BuildRequires:	ruby >= 1:1.8.6
+BuildRequires:	ruby-devel
 BuildRequires:	ruby-modules
 %{?ruby_mod_ver_requires_eq}
 Provides:	ruby-mysql-library
