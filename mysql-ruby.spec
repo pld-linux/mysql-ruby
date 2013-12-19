@@ -2,7 +2,7 @@ Summary:	MySQL module for Ruby
 Summary(pl.UTF-8):	Moduł MySQL dla języka Ruby
 Name:		mysql-ruby
 Version:	2.8.2
-Release:	4
+Release:	5
 License:	GPL
 Group:		Development/Languages
 Source0:	http://tmtm.org/downloads/mysql/ruby/%{name}-%{version}.tar.gz
@@ -11,11 +11,11 @@ Patch0:		%{name}-amd64.patch
 Patch1:		%{name}-encoding.patch
 URL:		http://www.tmtm.org/mysql/ruby/
 BuildRequires:	mysql-devel
-BuildRequires:	rpmbuild(macros) >= 1.484
+BuildRequires:	rpm-rubyprov
+BuildRequires:	rpmbuild(macros) >= 1.665
 BuildRequires:	ruby >= 1:1.8.6
 BuildRequires:	ruby-devel
 BuildRequires:	ruby-modules
-%{?ruby_mod_ver_requires_eq}
 Provides:	ruby-mysql-library
 Conflicts:	ruby-mysql
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -70,11 +70,11 @@ rm ri/created.rid
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{ruby_rubylibdir},%{ruby_ridir},%{ruby_rdocdir}}
+install -d $RPM_BUILD_ROOT{%{ruby_vendorlibdir},%{ruby_ridir},%{ruby_rdocdir}}
 
 %{__make} install \
-	archdir=$RPM_BUILD_ROOT%{ruby_archdir} \
-	sitearchdir=$RPM_BUILD_ROOT%{ruby_archdir}
+	archdir=$RPM_BUILD_ROOT%{ruby_vendorarchdir} \
+	sitearchdir=$RPM_BUILD_ROOT%{ruby_vendorarchdir}
 
 cp -a ri/* $RPM_BUILD_ROOT%{ruby_ridir}
 cp -a rdoc $RPM_BUILD_ROOT%{ruby_rdocdir}/%{name}-%{version}
@@ -85,7 +85,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README*
-%attr(755,root,root) %{ruby_archdir}/mysql.so
+%attr(755,root,root) %{ruby_vendorarchdir}/mysql.so
 
 %files rdoc
 %defattr(644,root,root,755)
