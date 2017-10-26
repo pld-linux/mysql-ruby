@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_without	doc			# don't build ri/rdoc
+
 Summary:	MySQL module for Ruby
 Summary(pl.UTF-8):	Moduł MySQL dla języka Ruby
 Name:		mysql-ruby
@@ -73,21 +77,26 @@ ruby extconf.rb \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} -fPIC"
 
+%if %{with doc}
 rdoc --ri --op ri
 rdoc --op rdoc
 rm -r ri/Object
 rm ri/created.rid
+rm ri/cache.ri
+rm ri/page-*.ri
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{ruby_vendorlibdir},%{ruby_ridir},%{ruby_rdocdir}}
-
 %{__make} install \
 	archdir=$RPM_BUILD_ROOT%{ruby_vendorarchdir} \
 	sitearchdir=$RPM_BUILD_ROOT%{ruby_vendorarchdir}
 
+%if %{with doc}
 cp -a ri/* $RPM_BUILD_ROOT%{ruby_ridir}
 cp -a rdoc $RPM_BUILD_ROOT%{ruby_rdocdir}/%{name}-%{version}
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -97,6 +106,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc README*
 %attr(755,root,root) %{ruby_vendorarchdir}/mysql.so
 
+%if %{with doc}
 %files rdoc
 %defattr(644,root,root,755)
 %{ruby_rdocdir}/%{name}-%{version}
@@ -105,3 +115,4 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{ruby_ridir}/Mysql
 %{ruby_ridir}/TC_Mysql*
+%endif
