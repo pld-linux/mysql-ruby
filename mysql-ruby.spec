@@ -15,7 +15,6 @@ Patch0:		%{name}-amd64.patch
 Patch1:		%{name}-encoding.patch
 Patch2:		rbconfig-deprecation.patch
 URL:		http://www.tmtm.org/mysql/ruby/README.html
-BuildRequires:	gmp-devel
 BuildRequires:	mysql-devel
 BuildRequires:	rpm-rubyprov
 BuildRequires:	rpmbuild(macros) >= 1.665
