@@ -1,0 +1,14 @@
+--- mysql-ruby-2.8.2/extconf.rb~	2017-10-26 21:23:06.000000000 +0300
++++ mysql-ruby-2.8.2/extconf.rb	2017-10-26 21:24:59.070002292 +0300
+@@ -37,9 +37,9 @@
+   f.puts src
+ end
+ if defined? cpp_command then
+-  cpp = Config.expand(cpp_command(''))
++  cpp = RbConfig.expand(cpp_command(''))
+ else
+-  cpp = Config.expand sprintf(CPP, $CPPFLAGS, $CFLAGS, '')
++  cpp = RbConfig.expand sprintf(CPP, $CPPFLAGS, $CFLAGS, '')
+ end
+ if /mswin32/ =~ RUBY_PLATFORM && !/-E/.match(cpp)
+   cpp << " -E"
