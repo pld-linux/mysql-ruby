@@ -1,0 +1,11 @@
+--- mysql-ruby-2.8.2/mysql.c~	2018-06-10 07:20:17.000000000 +0900
++++ mysql-ruby-2.8.2/mysql.c	2018-06-10 07:21:50.252989913 +0900
+@@ -1343,7 +1343,7 @@
+ 	}
+ 	else if (argv[i] == rb_cString)
+ 	    s->result.bind[i].buffer_type = MYSQL_TYPE_STRING;
+-	else if (argv[i] == rb_cNumeric || argv[i] == rb_cInteger || argv[i] == rb_cFixnum)
++	else if (argv[i] == rb_cNumeric || argv[i] == rb_cInteger)
+ 	    s->result.bind[i].buffer_type = MYSQL_TYPE_LONGLONG;
+ 	else if (argv[i] == rb_cFloat)
+ 	    s->result.bind[i].buffer_type = MYSQL_TYPE_DOUBLE;
