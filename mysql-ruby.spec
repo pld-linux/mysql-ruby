@@ -6,7 +6,7 @@ Summary:	MySQL module for Ruby
 Summary(pl.UTF-8):	Moduł MySQL dla języka Ruby
 Name:		mysql-ruby
 Version:	2.8.2
-Release:	13
+Release:	14
 License:	GPL
 Group:		Development/Languages
 Source0:	http://tmtm.org/downloads/mysql/ruby/%{name}-%{version}.tar.gz
